@@ -18,10 +18,10 @@ public class MainManagerMenu : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
+
         // real stuff
         LoadHighScore();
     }
@@ -40,7 +40,7 @@ public class MainManagerMenu : MonoBehaviour
         data.HighScore = HighScore;
 
         var json = JsonUtility.ToJson(data);
-        
+
         File.WriteAllText($"{Application.persistentDataPath}/savefile.json", json);
     }
 
@@ -54,10 +54,21 @@ public class MainManagerMenu : MonoBehaviour
 
             HighScorePlayerName = data.HighScorePlayerName;
             HighScore = data.HighScore;
-            
+
+        }
+        else
+        {
+            HighScorePlayerName = "N/A";
+            HighScore = 0;
         }
     }
 
-    
-    
+    public void UpdateHighScore(string newHighScorePlayerName, int newHighScore)
+    {
+        HighScorePlayerName = newHighScorePlayerName;
+        HighScore = newHighScore;
+        SaveHighScore();
+    }
+
+
 }
